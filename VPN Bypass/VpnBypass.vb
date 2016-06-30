@@ -13,7 +13,7 @@ Public Class VpnBypass
     '============================================================
 
     ' Add
-    Private Sub BtnAddDomain_Click(sender As Object, e As EventArgs) Handles BtnAddDomain.Click
+    Private Sub BtnAddDomain_Click(sender As Object, e As EventArgs)
         Dim domain = TextBoxDomain.Text.ToLower()
         Dim opts As Hashtable = New Hashtable
         opts.Add("nslookup", "true") 'TODO set this from ui settings
@@ -37,14 +37,14 @@ Public Class VpnBypass
         BtnAddDomain.Enabled = False
     End Sub
 
-    Private Sub TextBoxDomain_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBoxDomain.KeyPress
+    Private Sub TextBoxDomain_KeyPress(sender As Object, e As KeyPressEventArgs)
         If e.KeyChar = vbCr.ToCharArray() Then
             BtnAddDomain_Click(sender, e)
         End If
     End Sub
 
     ' Remove
-    Private Sub BtnRemoveDomain_Click(sender As Object, e As EventArgs) Handles BtnRemoveDomain.Click
+    Private Sub BtnRemoveDomain_Click(sender As Object, e As EventArgs)
         Dim selectedNode As TreeNode = TreeViewDomains.SelectedNode
         If selectedNode.Parent Is Nothing Then
             Dim domainNode As TreeNode = selectedNode
@@ -98,7 +98,7 @@ Public Class VpnBypass
     End Sub
 
     ' Add domain textbox behavior
-    Private Sub TextBoxDomain_TextChanged(sender As Object, e As EventArgs) Handles TextBoxDomain.TextChanged
+    Private Sub TextBoxDomain_TextChanged(sender As Object, e As EventArgs)
         If TextBoxDomain.Text() = "" Then
             BtnAddDomain.Enabled = False
         ElseIf TextBoxDomain.Text() IsNot "example.com" And Not TextBoxDomain.ForeColor = Color.LightGray Then
@@ -106,14 +106,14 @@ Public Class VpnBypass
         End If
     End Sub
 
-    Private Sub TextBoxDomain_GotFocus(sender As Object, e As EventArgs) Handles TextBoxDomain.GotFocus
+    Private Sub TextBoxDomain_GotFocus(sender As Object, e As EventArgs)
         If TextBoxDomain.Text() = "example.com" And TextBoxDomain.ForeColor() = Color.LightGray Then
             TextBoxDomain.ForeColor = Color.Black
             TextBoxDomain.Text = ""
         End If
     End Sub
 
-    Private Sub TextBoxDomain_LostFocus(sender As Object, e As EventArgs) Handles TextBoxDomain.LostFocus
+    Private Sub TextBoxDomain_LostFocus(sender As Object, e As EventArgs)
         If TextBoxDomain.Text() = "" Then
             TextBoxDomain.ForeColor = Color.LightGray
             TextBoxDomain.Text = "example.com"

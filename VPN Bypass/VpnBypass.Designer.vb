@@ -28,9 +28,6 @@ Partial Class VpnBypass
         Me.TabVpnBypass = New System.Windows.Forms.TabPage()
         Me.TreeViewDomains = New System.Windows.Forms.TreeView()
         Me.ImageList = New System.Windows.Forms.ImageList(Me.components)
-        Me.TextBoxDomain = New System.Windows.Forms.TextBox()
-        Me.BtnRemoveDomain = New System.Windows.Forms.Button()
-        Me.BtnAddDomain = New System.Windows.Forms.Button()
         Me.TabSettings = New System.Windows.Forms.TabPage()
         Me.Val_PublicIp = New System.Windows.Forms.Label()
         Me.Lbl_PublicIp = New System.Windows.Forms.Label()
@@ -45,6 +42,14 @@ Partial Class VpnBypass
         Me.Lbl_SubnetMask = New System.Windows.Forms.Label()
         Me.Lbl_DefaultGateway = New System.Windows.Forms.Label()
         Me.Lbl_IpAddress = New System.Windows.Forms.Label()
+        Me.TabAddEdit = New System.Windows.Forms.TabPage()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.TextBoxDomain = New System.Windows.Forms.TextBox()
+        Me.BtnAddDomain = New System.Windows.Forms.Button()
         Me.BtnDisableAllRoutes = New System.Windows.Forms.Button()
         Me.BtnForceUpdateRoutes = New System.Windows.Forms.Button()
         Me.BtnEnableAllRoutes = New System.Windows.Forms.Button()
@@ -58,10 +63,25 @@ Partial Class VpnBypass
         Me.ToolStripMenuItemExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.ProgressBar = New System.Windows.Forms.ProgressBar()
+        Me.BtnRemoveDomain = New System.Windows.Forms.Button()
+        Me.ContextMenuStripDomains = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.DomainToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemoveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DNSIPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AddToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemoveToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EditToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.EnableexamplecomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DisableexamplecomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabControlVpnBypass.SuspendLayout()
         Me.TabVpnBypass.SuspendLayout()
         Me.TabSettings.SuspendLayout()
+        Me.TabAddEdit.SuspendLayout()
         Me.ContextMenuStrip.SuspendLayout()
+        Me.ContextMenuStripDomains.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControlVpnBypass
@@ -70,6 +90,7 @@ Partial Class VpnBypass
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabControlVpnBypass.Controls.Add(Me.TabVpnBypass)
+        Me.TabControlVpnBypass.Controls.Add(Me.TabAddEdit)
         Me.TabControlVpnBypass.Controls.Add(Me.TabSettings)
         Me.TabControlVpnBypass.Location = New System.Drawing.Point(10, 10)
         Me.TabControlVpnBypass.Name = "TabControlVpnBypass"
@@ -80,9 +101,6 @@ Partial Class VpnBypass
         'TabVpnBypass
         '
         Me.TabVpnBypass.Controls.Add(Me.TreeViewDomains)
-        Me.TabVpnBypass.Controls.Add(Me.TextBoxDomain)
-        Me.TabVpnBypass.Controls.Add(Me.BtnRemoveDomain)
-        Me.TabVpnBypass.Controls.Add(Me.BtnAddDomain)
         Me.TabVpnBypass.Location = New System.Drawing.Point(4, 22)
         Me.TabVpnBypass.Name = "TabVpnBypass"
         Me.TabVpnBypass.Padding = New System.Windows.Forms.Padding(3)
@@ -96,6 +114,7 @@ Partial Class VpnBypass
         Me.TreeViewDomains.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TreeViewDomains.ContextMenuStrip = Me.ContextMenuStripDomains
         Me.TreeViewDomains.HideSelection = False
         Me.TreeViewDomains.ImageKey = "disabled"
         Me.TreeViewDomains.ImageList = Me.ImageList
@@ -103,7 +122,7 @@ Partial Class VpnBypass
         Me.TreeViewDomains.Name = "TreeViewDomains"
         Me.TreeViewDomains.SelectedImageIndex = 0
         Me.TreeViewDomains.ShowNodeToolTips = True
-        Me.TreeViewDomains.Size = New System.Drawing.Size(343, 153)
+        Me.TreeViewDomains.Size = New System.Drawing.Size(343, 188)
         Me.TreeViewDomains.TabIndex = 6
         '
         'ImageList
@@ -113,40 +132,6 @@ Partial Class VpnBypass
         Me.ImageList.Images.SetKeyName(0, "child")
         Me.ImageList.Images.SetKeyName(1, "disabled")
         Me.ImageList.Images.SetKeyName(2, "enabled")
-        '
-        'TextBoxDomain
-        '
-        Me.TextBoxDomain.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBoxDomain.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBoxDomain.ForeColor = System.Drawing.Color.LightGray
-        Me.TextBoxDomain.Location = New System.Drawing.Point(6, 165)
-        Me.TextBoxDomain.Name = "TextBoxDomain"
-        Me.TextBoxDomain.Size = New System.Drawing.Size(209, 29)
-        Me.TextBoxDomain.TabIndex = 4
-        Me.TextBoxDomain.Text = "example.com"
-        '
-        'BtnRemoveDomain
-        '
-        Me.BtnRemoveDomain.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnRemoveDomain.Enabled = False
-        Me.BtnRemoveDomain.Location = New System.Drawing.Point(289, 163)
-        Me.BtnRemoveDomain.Name = "BtnRemoveDomain"
-        Me.BtnRemoveDomain.Size = New System.Drawing.Size(60, 31)
-        Me.BtnRemoveDomain.TabIndex = 3
-        Me.BtnRemoveDomain.Text = "Remove"
-        Me.BtnRemoveDomain.UseVisualStyleBackColor = True
-        '
-        'BtnAddDomain
-        '
-        Me.BtnAddDomain.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnAddDomain.Enabled = False
-        Me.BtnAddDomain.Location = New System.Drawing.Point(221, 163)
-        Me.BtnAddDomain.Name = "BtnAddDomain"
-        Me.BtnAddDomain.Size = New System.Drawing.Size(62, 31)
-        Me.BtnAddDomain.TabIndex = 2
-        Me.BtnAddDomain.Text = "Add"
-        Me.BtnAddDomain.UseVisualStyleBackColor = True
         '
         'TabSettings
         '
@@ -291,6 +276,91 @@ Partial Class VpnBypass
         Me.Lbl_IpAddress.TabIndex = 0
         Me.Lbl_IpAddress.Text = "IP Address"
         '
+        'TabAddEdit
+        '
+        Me.TabAddEdit.Controls.Add(Me.Label3)
+        Me.TabAddEdit.Controls.Add(Me.Label2)
+        Me.TabAddEdit.Controls.Add(Me.Label1)
+        Me.TabAddEdit.Controls.Add(Me.TextBox1)
+        Me.TabAddEdit.Controls.Add(Me.ComboBox1)
+        Me.TabAddEdit.Controls.Add(Me.TextBoxDomain)
+        Me.TabAddEdit.Controls.Add(Me.BtnAddDomain)
+        Me.TabAddEdit.Location = New System.Drawing.Point(4, 22)
+        Me.TabAddEdit.Name = "TabAddEdit"
+        Me.TabAddEdit.Size = New System.Drawing.Size(355, 200)
+        Me.TabAddEdit.TabIndex = 2
+        Me.TabAddEdit.Text = "Add"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(13, 68)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(70, 13)
+        Me.Label3.TabIndex = 12
+        Me.Label3.Text = "Subnet Mask"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(13, 41)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(70, 13)
+        Me.Label2.TabIndex = 11
+        Me.Label2.Text = "Refresh DNS"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(13, 15)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(43, 13)
+        Me.Label1.TabIndex = 10
+        Me.Label1.Text = "Domain"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.ForeColor = System.Drawing.Color.LightGray
+        Me.TextBox1.Location = New System.Drawing.Point(137, 65)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(209, 20)
+        Me.TextBox1.TabIndex = 9
+        Me.TextBox1.Text = "Leave blank to use default"
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.DisplayMember = "Yes (default)"
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"Yes (default)", "No"})
+        Me.ComboBox1.Location = New System.Drawing.Point(137, 38)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(209, 21)
+        Me.ComboBox1.TabIndex = 8
+        '
+        'TextBoxDomain
+        '
+        Me.TextBoxDomain.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBoxDomain.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBoxDomain.ForeColor = System.Drawing.Color.LightGray
+        Me.TextBoxDomain.Location = New System.Drawing.Point(137, 12)
+        Me.TextBoxDomain.Name = "TextBoxDomain"
+        Me.TextBoxDomain.Size = New System.Drawing.Size(209, 20)
+        Me.TextBoxDomain.TabIndex = 7
+        Me.TextBoxDomain.Text = "example.com"
+        '
+        'BtnAddDomain
+        '
+        Me.BtnAddDomain.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnAddDomain.Enabled = False
+        Me.BtnAddDomain.Location = New System.Drawing.Point(284, 157)
+        Me.BtnAddDomain.Name = "BtnAddDomain"
+        Me.BtnAddDomain.Size = New System.Drawing.Size(62, 31)
+        Me.BtnAddDomain.TabIndex = 5
+        Me.BtnAddDomain.Text = "Add"
+        Me.BtnAddDomain.UseVisualStyleBackColor = True
+        '
         'BtnDisableAllRoutes
         '
         Me.BtnDisableAllRoutes.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -388,6 +458,90 @@ Partial Class VpnBypass
         Me.ProgressBar.TabIndex = 5
         Me.ProgressBar.Visible = False
         '
+        'BtnRemoveDomain
+        '
+        Me.BtnRemoveDomain.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnRemoveDomain.Enabled = False
+        Me.BtnRemoveDomain.Location = New System.Drawing.Point(117, 243)
+        Me.BtnRemoveDomain.Name = "BtnRemoveDomain"
+        Me.BtnRemoveDomain.Size = New System.Drawing.Size(60, 31)
+        Me.BtnRemoveDomain.TabIndex = 6
+        Me.BtnRemoveDomain.Text = "Remove"
+        Me.BtnRemoveDomain.UseVisualStyleBackColor = True
+        '
+        'ContextMenuStripDomains
+        '
+        Me.ContextMenuStripDomains.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DomainToolStripMenuItem, Me.AddToolStripMenuItem, Me.RemoveToolStripMenuItem, Me.EditToolStripMenuItem, Me.DNSIPToolStripMenuItem, Me.AddToolStripMenuItem1, Me.RemoveToolStripMenuItem1, Me.EditToolStripMenuItem1, Me.ToolStripMenuItem1, Me.EnableexamplecomToolStripMenuItem, Me.DisableexamplecomToolStripMenuItem})
+        Me.ContextMenuStripDomains.Name = "ContextMenuStrip1"
+        Me.ContextMenuStripDomains.Size = New System.Drawing.Size(198, 230)
+        '
+        'DomainToolStripMenuItem
+        '
+        Me.DomainToolStripMenuItem.Enabled = False
+        Me.DomainToolStripMenuItem.Name = "DomainToolStripMenuItem"
+        Me.DomainToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
+        Me.DomainToolStripMenuItem.Text = "Domain"
+        '
+        'AddToolStripMenuItem
+        '
+        Me.AddToolStripMenuItem.Name = "AddToolStripMenuItem"
+        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.AddToolStripMenuItem.Text = "Add New"
+        '
+        'RemoveToolStripMenuItem
+        '
+        Me.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem"
+        Me.RemoveToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.RemoveToolStripMenuItem.Text = "Remove 'example.com'"
+        '
+        'EditToolStripMenuItem
+        '
+        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.EditToolStripMenuItem.Text = "Edit 'example.com'"
+        '
+        'DNSIPToolStripMenuItem
+        '
+        Me.DNSIPToolStripMenuItem.Enabled = False
+        Me.DNSIPToolStripMenuItem.Name = "DNSIPToolStripMenuItem"
+        Me.DNSIPToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
+        Me.DNSIPToolStripMenuItem.Text = "DNS IP"
+        '
+        'AddToolStripMenuItem1
+        '
+        Me.AddToolStripMenuItem1.Name = "AddToolStripMenuItem1"
+        Me.AddToolStripMenuItem1.Size = New System.Drawing.Size(197, 22)
+        Me.AddToolStripMenuItem1.Text = "Add to 'example.com'"
+        '
+        'RemoveToolStripMenuItem1
+        '
+        Me.RemoveToolStripMenuItem1.Name = "RemoveToolStripMenuItem1"
+        Me.RemoveToolStripMenuItem1.Size = New System.Drawing.Size(197, 22)
+        Me.RemoveToolStripMenuItem1.Text = "Remove '0.0.0.0'"
+        '
+        'EditToolStripMenuItem1
+        '
+        Me.EditToolStripMenuItem1.Name = "EditToolStripMenuItem1"
+        Me.EditToolStripMenuItem1.Size = New System.Drawing.Size(197, 22)
+        Me.EditToolStripMenuItem1.Text = "Edit '0.0.0.0'"
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(194, 6)
+        '
+        'EnableexamplecomToolStripMenuItem
+        '
+        Me.EnableexamplecomToolStripMenuItem.Name = "EnableexamplecomToolStripMenuItem"
+        Me.EnableexamplecomToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.EnableexamplecomToolStripMenuItem.Text = "Enable 'example.com'"
+        '
+        'DisableexamplecomToolStripMenuItem
+        '
+        Me.DisableexamplecomToolStripMenuItem.Name = "DisableexamplecomToolStripMenuItem"
+        Me.DisableexamplecomToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.DisableexamplecomToolStripMenuItem.Text = "Disable 'example.com'"
+        '
         'VpnBypass
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -395,6 +549,7 @@ Partial Class VpnBypass
         Me.ClientSize = New System.Drawing.Size(384, 286)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.ProgressBar)
+        Me.Controls.Add(Me.BtnRemoveDomain)
         Me.Controls.Add(Me.BtnEnableAllRoutes)
         Me.Controls.Add(Me.BtnForceUpdateRoutes)
         Me.Controls.Add(Me.BtnDisableAllRoutes)
@@ -405,23 +560,22 @@ Partial Class VpnBypass
         Me.Text = "VPN Bypass"
         Me.TabControlVpnBypass.ResumeLayout(False)
         Me.TabVpnBypass.ResumeLayout(False)
-        Me.TabVpnBypass.PerformLayout()
         Me.TabSettings.ResumeLayout(False)
         Me.TabSettings.PerformLayout()
+        Me.TabAddEdit.ResumeLayout(False)
+        Me.TabAddEdit.PerformLayout()
         Me.ContextMenuStrip.ResumeLayout(False)
+        Me.ContextMenuStripDomains.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents TabControlVpnBypass As TabControl
     Friend WithEvents TabVpnBypass As TabPage
-    Friend WithEvents BtnRemoveDomain As Button
-    Friend WithEvents BtnAddDomain As Button
     Friend WithEvents TabSettings As TabPage
     Friend WithEvents Lbl_SubnetMask As Label
     Friend WithEvents Lbl_DefaultGateway As Label
     Friend WithEvents Lbl_IpAddress As Label
-    Friend WithEvents TextBoxDomain As TextBox
     Friend WithEvents BtnDisableAllRoutes As Button
     Friend WithEvents Val_IpAddress As Label
     Friend WithEvents Val_SubnetMask As Label
@@ -447,4 +601,25 @@ Partial Class VpnBypass
     Friend WithEvents Val_PublicIp As Label
     Friend WithEvents Lbl_PublicIp As Label
     Friend WithEvents ImageList As ImageList
+    Friend WithEvents TabAddEdit As TabPage
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents TextBoxDomain As TextBox
+    Friend WithEvents BtnAddDomain As Button
+    Friend WithEvents BtnRemoveDomain As Button
+    Friend WithEvents ContextMenuStripDomains As ContextMenuStrip
+    Friend WithEvents DomainToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AddToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RemoveToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EditToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DNSIPToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AddToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents RemoveToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents EditToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
+    Friend WithEvents EnableexamplecomToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DisableexamplecomToolStripMenuItem As ToolStripMenuItem
 End Class
