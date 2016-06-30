@@ -76,7 +76,7 @@ Module Route
                             Dim metric = groups.Item(4).ToString
 
                             ' Create CIDR based on subnet mask
-                            Dim cidr As String = NetworkInfo.getCidrFromSubnetMask(netmask)
+                            Dim cidr As String = IPv4.getCidrFromSubnetMask(netmask)
 
                             ' Create IP node to reference later
                             Dim opts As Hashtable = New Hashtable

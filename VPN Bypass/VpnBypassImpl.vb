@@ -91,7 +91,7 @@
         Next
 
         ' Handle case where actual IP address was entered instead of domain name
-        If NetworkInfo.isIpv4Address(domainNode) = True Then
+        If IPv4.isValid(domainNode) = True Then
             Route.add(domainNode)
         End If
 
@@ -123,7 +123,7 @@
         Next
 
         ' Handle case where actual IP address was entered instead of domain name
-        If NetworkInfo.isIpv4Address(domainNode) = True Then
+        If IPv4.isValid(domainNode) = True Then
             Route.delete(domainNode)
         End If
 

@@ -83,16 +83,16 @@ Module FileIO
 
                 For Each row In content
                     Dim ipInfo As String() = row.Split(",")
-                    Dim ip As String = NetworkInfo.getIpAddressFromIpCidr(ipInfo(0)) 'TODO add graceful error/defaults handling for short array
-                    Dim cidr As String = NetworkInfo.getCidrFromIpCidr(ipInfo(0))
+                    Dim ip As String = IPv4.getIpAddressFromIpCidr(ipInfo(0)) 'TODO add graceful error/defaults handling for short array
+                    Dim cidr As String = IPv4.getCidrFromIpCidr(ipInfo(0))
                     Dim subnetMask As String = ipInfo(1)
                     Dim permanent As String = ipInfo(2)
 
                     ' Ensure cidr and subnet mask are defined
-                    If cidr = "" And NetworkInfo.isIpv4Address(subnetMask) Then
-                        cidr = NetworkInfo.getCidrFromSubnetMask(subnetMask)
-                    ElseIf subnetMask = "" And NetworkInfo.isCidr(cidr) = True Then
-                        subnetMask = NetworkInfo.getSubnetMaskFromCidr(cidr)
+                    If cidr = "" And IPv4.isValid(subnetMask) Then
+                        cidr = IPv4.getCidrFromSubnetMask(subnetMask)
+                    ElseIf subnetMask = "" And IPv4.isCidr(cidr) = True Then
+                        subnetMask = IPv4.getSubnetMaskFromCidr(cidr)
                     ElseIf cidr = "" And subnetMask = "" Then
                         cidr = "32"
                         subnetMask = "255.255.255.255"

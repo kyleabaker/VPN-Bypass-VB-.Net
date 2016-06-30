@@ -2,6 +2,7 @@
 Imports System.IO
 Imports System.Net
 Imports System.Net.NetworkInformation
+Imports System.Threading
 
 Public Class VpnBypass
     Dim VpnBypassWindowState As FormWindowState = FormWindowState.Normal
@@ -228,8 +229,8 @@ Public Class VpnBypass
     Private Sub VpnBypass_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         VpnBypassImpl.log("Startup at: " & DateTime.Now + vbCrLf)
 
-        ' Log Adaptor Info for debugging
-        NetworkInfo.getAdaptorInfo()
+        ' Log Adapter Info for debugging
+        NetworkInfo.getAdapterInfo()
 
         ' Process mapped routes
         Route.print()

@@ -1,5 +1,4 @@
 ﻿Imports System.Net
-Imports System.Text.RegularExpressions
 
 Module NSLookUp
     ' Permform NSLookUp on all saved domains
@@ -73,7 +72,7 @@ Module NSLookUp
         Dim retries As Integer = 1 'TODO set this from ui
 
         ' If this is an IP address and not a domain, return an empty list of ipNodes
-        If NetworkInfo.isIpv4Address(domainNode) = True Then
+        If IPv4.isValid(domainNode) = True Then
             Return ipNodes
         End If
 
@@ -160,7 +159,7 @@ Module NSLookUp
                     opts.Add("permanent", "false")
 
                     Dim ipNode As TreeNode = VpnBypassImpl.getNewTreeNode(ip, opts)
-                    If Not ip = "" And NetworkInfo.isIpv4Address(ipNode) = True Then
+                    If Not ip = "" And IPv4.isValid(ipNode) = True Then
                         If ipNodes.Nodes.ContainsKey(ip) = False Then
                             ipNodes.Nodes.Add(ipNode)
                         End If
