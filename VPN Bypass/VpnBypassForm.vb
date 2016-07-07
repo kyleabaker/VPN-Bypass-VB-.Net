@@ -64,7 +64,12 @@ Public Class VpnBypassForm
 
     ' Domain textbox changed, enable/disable Add button
     Private Sub TextBoxDomainAddEdit_TextChanged(sender As Object, e As EventArgs) Handles TextBoxDomainAddEdit.TextChanged
-        VpnBypassTabAddEdit.doDomainTextboxChanged()
+        'TODO VpnBypassTabAddEdit.doDomainTextboxChanged()
+        If Me.TextBoxDomainAddEdit.Text() = "" Then
+            Me.ButtonAddDomainAddEdit.Enabled = False
+        ElseIf Me.TextBoxDomainAddEdit.Text() IsNot "example.com" And Not Me.TextBoxDomainAddEdit.ForeColor = Color.LightGray Then
+            Me.ButtonAddDomainAddEdit.Enabled = True
+        End If
     End Sub
 
     ' Domain textbox focused
