@@ -1,12 +1,12 @@
 ﻿Module Notify
     Public Sub setSystemTrayIcon()
-        VpnBypass.NotifyIcon.Icon = VpnBypass.Icon
+        VpnBypassForm.NotifyIcon.Icon = VpnBypassForm.Icon
     End Sub
 
     Public Sub setBalloonTip(message As String)
-        VpnBypass.NotifyIcon.BalloonTipIcon = ToolTipIcon.Info
-        VpnBypass.NotifyIcon.BalloonTipTitle = "VPN Bypass"
-        VpnBypass.NotifyIcon.BalloonTipText = message
-        VpnBypass.NotifyIcon.ShowBalloonTip(20000)
+        VpnBypassForm.NotifyIcon.BalloonTipIcon = ToolTipIcon.Info
+        VpnBypassForm.NotifyIcon.BalloonTipTitle = "VPN Bypass"
+        VpnBypassForm.NotifyIcon.BalloonTipText = message
+        VpnBypassForm.NotifyIcon.ShowBalloonTip(20000)
     End Sub
 End Module

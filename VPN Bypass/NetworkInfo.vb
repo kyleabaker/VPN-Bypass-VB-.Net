@@ -35,8 +35,8 @@ Module NetworkInfo
                     hostIp = IPAddressInfo.Address.ToString
                     subnetMaskIp = IPAddressInfo.IPv4Mask.ToString
 
-                    VpnBypass.Val_IpAddress.Text = hostIp
-                    VpnBypass.Val_SubnetMask.Text = subnetMaskIp
+                    VpnBypassForm.Val_IpAddress.Text = hostIp
+                    VpnBypassForm.Val_SubnetMask.Text = subnetMaskIp
                 End If
             Next
 
@@ -45,7 +45,7 @@ Module NetworkInfo
                 VpnBypassImpl.log("Gateway IP  : " & Gateway.Address.ToString)
                 If IPv4.isValid(Gateway.Address.ToString) = True Then
                     gatewayIp = Gateway.Address.ToString
-                    VpnBypass.Val_DefaultGateway.Text = gatewayIp
+                    VpnBypassForm.Val_DefaultGateway.Text = gatewayIp
                 End If
             Next
 
@@ -90,6 +90,6 @@ Module NetworkInfo
             publicIp = response
         End If
 
-        VpnBypass.Val_PublicIp.Text = publicIp
+        VpnBypassForm.Val_PublicIp.Text = publicIp
     End Sub
 End Module

@@ -3,12 +3,12 @@
 Module NSLookUp
     ' Permform NSLookUp on all saved domains
     Public Sub all()
-        VpnBypass.ProgressBar.Maximum = VpnBypass.TreeViewDomains.Nodes.Count
-        VpnBypass.ProgressBar.Value = 0
-        VpnBypass.ProgressBar.Visible = True
+        VpnBypassForm.ProgressBar.Maximum = VpnBypassForm.TreeViewDomains.Nodes.Count
+        VpnBypassForm.ProgressBar.Value = 0
+        VpnBypassForm.ProgressBar.Visible = True
 
-        For Each domainNode As TreeNode In VpnBypass.TreeViewDomains.Nodes
-            VpnBypass.ProgressBar.Value += 1
+        For Each domainNode As TreeNode In VpnBypassForm.TreeViewDomains.Nodes
+            VpnBypassForm.ProgressBar.Value += 1
 
             Dim domain As String = domainNode.Name
 
@@ -58,7 +58,7 @@ Module NSLookUp
             FileIO.saveSpecificDomainList(domainNode)
         Next
 
-        VpnBypass.ProgressBar.Visible = False
+        VpnBypassForm.ProgressBar.Visible = False
 
         ' Refresh Routed IP list
         Route.print()

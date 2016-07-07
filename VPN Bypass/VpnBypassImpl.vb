@@ -6,10 +6,10 @@
 
     Public Sub addDomain(domainNode As TreeNode)
         Dim domain As String = domainNode.Name
-        If domain IsNot "" And VpnBypass.TreeViewDomains.Nodes.ContainsKey(domain) = False Then
+        If domain IsNot "" And VpnBypassForm.TreeViewDomains.Nodes.ContainsKey(domain) = False Then
             domainNode.ImageKey = "disabled"
             domainNode.SelectedImageKey = "disabled"
-            VpnBypass.TreeViewDomains.Nodes.Add(domainNode)
+            VpnBypassForm.TreeViewDomains.Nodes.Add(domainNode)
         End If
     End Sub
 
@@ -25,7 +25,7 @@
         Dim domain As String = domainNode.Name
         Dim ip As String = ipNode.Name
         If ip IsNot "" And domain IsNot "" Then
-            Dim branch = VpnBypass.TreeViewDomains.Nodes.Find(domain, True)
+            Dim branch = VpnBypassForm.TreeViewDomains.Nodes.Find(domain, True)
             ipNode.ImageKey = "child"
             ipNode.SelectedImageKey = "child"
             branch(0).Nodes.Add(ipNode)
@@ -36,7 +36,7 @@
         Dim domain As String = domainNode.Name
         Dim ip As String = ipNode.Name
         If ip IsNot "" And domain IsNot "" Then
-            Dim branch = VpnBypass.TreeViewDomains.Nodes.Find(domain, True)
+            Dim branch = VpnBypassForm.TreeViewDomains.Nodes.Find(domain, True)
             Dim leaf As TreeNode() = branch(0).Nodes.Find(ip, True)
             leaf(0) = ipNode
         End If
@@ -46,7 +46,7 @@
         Dim domain As String = domainNode.Name
         Dim ip As String = ipNode.Name
         If ip IsNot "" And domain IsNot "" Then
-            Dim branch = VpnBypass.TreeViewDomains.Nodes.Find(domain, True)
+            Dim branch = VpnBypassForm.TreeViewDomains.Nodes.Find(domain, True)
             branch(0).Nodes.RemoveByKey(ip)
         End If
     End Sub
@@ -69,16 +69,16 @@
     '============================================================
 
     Public Sub applyRoutes()
-        VpnBypass.ProgressBar.Maximum = VpnBypass.TreeViewDomains.Nodes.Count
-        VpnBypass.ProgressBar.Value = 0
-        VpnBypass.ProgressBar.Visible = True
+        VpnBypassForm.ProgressBar.Maximum = VpnBypassForm.TreeViewDomains.Nodes.Count
+        VpnBypassForm.ProgressBar.Value = 0
+        VpnBypassForm.ProgressBar.Visible = True
 
-        For Each domainNode As TreeNode In VpnBypass.TreeViewDomains.Nodes
-            VpnBypass.ProgressBar.Value += 1
+        For Each domainNode As TreeNode In VpnBypassForm.TreeViewDomains.Nodes
+            VpnBypassForm.ProgressBar.Value += 1
             applyRoutes(domainNode)
         Next
 
-        VpnBypass.ProgressBar.Visible = False
+        VpnBypassForm.ProgressBar.Visible = False
 
         ' Refresh Routed IP list
         Route.print()
@@ -101,16 +101,16 @@
     End Sub
 
     Public Sub deleteRoutes()
-        VpnBypass.ProgressBar.Maximum = VpnBypass.TreeViewDomains.Nodes.Count
-        VpnBypass.ProgressBar.Value = 0
-        VpnBypass.ProgressBar.Visible = True
+        VpnBypassForm.ProgressBar.Maximum = VpnBypassForm.TreeViewDomains.Nodes.Count
+        VpnBypassForm.ProgressBar.Value = 0
+        VpnBypassForm.ProgressBar.Visible = True
 
-        For Each domainNode As TreeNode In VpnBypass.TreeViewDomains.Nodes
-            VpnBypass.ProgressBar.Value += 1
+        For Each domainNode As TreeNode In VpnBypassForm.TreeViewDomains.Nodes
+            VpnBypassForm.ProgressBar.Value += 1
             deleteRoutes(domainNode)
         Next
 
-        VpnBypass.ProgressBar.Visible = False
+        VpnBypassForm.ProgressBar.Visible = False
 
         ' Refresh Routed IP list
         Route.print()

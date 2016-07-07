@@ -11,37 +11,42 @@ Module FileIO
     Public Sub openDomainList()
         Dim domainListPath = Application.StartupPath() + fileSeparator + fileDomains + fileExt
 
-        Try
-            Using sr As New StreamReader(domainListPath)
-                Dim content As String() = Strings.Split(sr.ReadToEnd(), vbCrLf)
+        If (File.Exists(domainListPath) = True) Then
+            Try
+                Using sr As New StreamReader(domainListPath)
+                    Dim content As String() = Strings.Split(sr.ReadToEnd(), vbCrLf)
 
-                For Each row In content
-                    If row IsNot "" Then
-                        Dim domainInfo As String() = row.Split(",")
-                        Dim domain As String = domainInfo(0) 'TODO add graceful error/defaults handling for short array
-                        Dim nslookup As String = domainInfo(1)
+                    For Each row In content
+                        If row IsNot "" Then
+                            Dim domainInfo As String() = row.Split(",")
+                            Dim domain As String = domainInfo(0) 'TODO add graceful error/defaults handling for short array
+                            Dim nslookup As String = domainInfo(1)
 
-                        ' Ensure nslookup option is defined
-                        If nslookup = "" Then
-                            nslookup = "true"
+                            ' Ensure nslookup option is defined
+                            If nslookup = "" Then
+                                nslookup = "true"
+                            End If
+
+                            Dim opts As Hashtable = New Hashtable
+                            opts.Add("nslookup", nslookup)
+
+                            Dim domainNode As TreeNode = VpnBypassImpl.getNewTreeNode(domain, opts)
+                            VpnBypassImpl.addDomain(domainNode)
+                            VpnBypassImpl.log(domain)
+
+                            ' Read in stored list of ip's for this domain
+                            openSpecificDomainList(domainNode)
                         End If
+                    Next
+                End Using
+            Catch e As Exception
+                VpnBypassImpl.log("Failed to read domain list from file: " + domainListPath)
+                VpnBypassImpl.log(e.Message)
+            End Try
+        Else
+            VpnBypassImpl.log("Domain list file not found: " + domainListPath)
+        End If
 
-                        Dim opts As Hashtable = New Hashtable
-                        opts.Add("nslookup", nslookup)
-
-                        Dim domainNode As TreeNode = VpnBypassImpl.getNewTreeNode(domain, opts)
-                        VpnBypassImpl.addDomain(domainNode)
-                        VpnBypassImpl.log(domain)
-
-                        ' Read in stored list of ip's for this domain
-                        openSpecificDomainList(domainNode)
-                    End If
-                Next
-            End Using
-        Catch e As Exception
-            VpnBypassImpl.log("Failed to read domain list from file: " + domainListPath)
-            VpnBypassImpl.log(e.Message)
-        End Try
     End Sub
 
     ' Save Domain List
@@ -50,7 +55,7 @@ Module FileIO
 
         ' Create output string
         Dim domainListOut As String = ""
-        For Each domainNode As TreeNode In VpnBypass.TreeViewDomains.Nodes
+        For Each domainNode As TreeNode In VpnBypassForm.TreeViewDomains.Nodes
             Dim domain As String = domainNode.Name
             Dim opts As Hashtable = domainNode.Tag
             Dim nslookup As String = opts.Item("nslookup").ToString()
@@ -76,58 +81,62 @@ Module FileIO
         Dim domain As String = domainNode.Name
         Dim domainListPath = Application.StartupPath() + fileSeparator + fileDomain + domain + fileExt
 
-        Try
-            Using sr As New StreamReader(domainListPath)
-                Dim content As String() = Strings.Split(sr.ReadToEnd(), vbCrLf)
-                Dim isDomainFullyEnabled As Boolean = True
+        If File.Exists(domainListPath) = True Then
+            Try
+                Using sr As New StreamReader(domainListPath)
+                    Dim content As String() = Strings.Split(sr.ReadToEnd(), vbCrLf)
+                    Dim isDomainFullyEnabled As Boolean = True
 
-                For Each row In content
-                    Dim ipInfo As String() = row.Split(",")
-                    Dim ip As String = IPv4.getIpAddressFromIpCidr(ipInfo(0)) 'TODO add graceful error/defaults handling for short array
-                    Dim cidr As String = IPv4.getCidrFromIpCidr(ipInfo(0))
-                    Dim subnetMask As String = ipInfo(1)
-                    Dim permanent As String = ipInfo(2)
+                    For Each row In content
+                        Dim ipInfo As String() = row.Split(",")
+                        Dim ip As String = IPv4.getIpAddressFromIpCidr(ipInfo(0)) 'TODO add graceful error/defaults handling for short array
+                        Dim cidr As String = IPv4.getCidrFromIpCidr(ipInfo(0))
+                        Dim subnetMask As String = ipInfo(1)
+                        Dim permanent As String = ipInfo(2)
 
-                    ' Ensure cidr and subnet mask are defined
-                    If cidr = "" And IPv4.isValid(subnetMask) Then
-                        cidr = IPv4.getCidrFromSubnetMask(subnetMask)
-                    ElseIf subnetMask = "" And IPv4.isCidr(cidr) = True Then
-                        subnetMask = IPv4.getSubnetMaskFromCidr(cidr)
-                    ElseIf cidr = "" And subnetMask = "" Then
-                        cidr = "32"
-                        subnetMask = "255.255.255.255"
+                        ' Ensure cidr and subnet mask are defined
+                        If cidr = "" And IPv4.isValid(subnetMask) Then
+                            cidr = IPv4.getCidrFromSubnetMask(subnetMask)
+                        ElseIf subnetMask = "" And IPv4.isCidr(cidr) = True Then
+                            subnetMask = IPv4.getSubnetMaskFromCidr(cidr)
+                        ElseIf cidr = "" And subnetMask = "" Then
+                            cidr = "32"
+                            subnetMask = "255.255.255.255"
+                        End If
+
+                        ' Ensure permanent option is defined
+                        If permanent = "" Then
+                            permanent = "False"
+                        End If
+
+                        Dim opts As Hashtable = New Hashtable
+                        opts.Add("cidr", cidr)
+                        opts.Add("subnetMask", subnetMask)
+                        opts.Add("permanent", permanent)
+
+                        Dim ipNode As TreeNode = VpnBypassImpl.getNewTreeNode(ip, opts)
+                        VpnBypassImpl.addDomainIp(domainNode, ipNode)
+                        VpnBypassImpl.log("- " + ip)
+
+                        ' Check if IP is already routed on import
+                        If Route.isRouted(ipNode) = False Then
+                            isDomainFullyEnabled = False
+                        End If
+                    Next
+
+                    ' If all domain ip's are already routed, mark domain as enabled
+                    If isDomainFullyEnabled = True Then
+                        domainNode.ImageKey = "enabled"
+                        domainNode.SelectedImageKey = "enabled"
                     End If
-
-                    ' Ensure permanent option is defined
-                    If permanent = "" Then
-                        permanent = "False"
-                    End If
-
-                    Dim opts As Hashtable = New Hashtable
-                    opts.Add("cidr", cidr)
-                    opts.Add("subnetMask", subnetMask)
-                    opts.Add("permanent", permanent)
-
-                    Dim ipNode As TreeNode = VpnBypassImpl.getNewTreeNode(ip, opts)
-                    VpnBypassImpl.addDomainIp(domainNode, ipNode)
-                    VpnBypassImpl.log("- " + ip)
-
-                    ' Check if IP is already routed on import
-                    If Route.isRouted(ipNode) = False Then
-                        isDomainFullyEnabled = False
-                    End If
-                Next
-
-                ' If all domain ip's are already routed, mark domain as enabled
-                If isDomainFullyEnabled = True Then
-                    domainNode.ImageKey = "enabled"
-                    domainNode.SelectedImageKey = "enabled"
-                End If
-            End Using
-        Catch e As Exception
-            VpnBypassImpl.log("Failed to read specific domain ip list file: " + domainListPath)
-            VpnBypassImpl.log(e.Message)
-        End Try
+                End Using
+            Catch e As Exception
+                VpnBypassImpl.log("Failed to read specific domain ip list file: " + domainListPath)
+                VpnBypassImpl.log(e.Message)
+            End Try
+        Else
+            VpnBypassImpl.log("Specific domain list file not found: " + domainListPath)
+        End If
     End Sub
 
     ' Save Domain's IP List

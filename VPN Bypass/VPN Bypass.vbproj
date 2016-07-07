@@ -100,6 +100,7 @@
     <Compile Include="FileIO.vb" />
     <Compile Include="IPv4.vb" />
     <Compile Include="IPv6.vb" />
+    <Compile Include="VpnBypassTabAddEdit.vb" />
     <Compile Include="Notify.vb" />
     <Compile Include="Route.vb" />
     <Compile Include="Tests\FileIO_Test.vb" />
@@ -110,11 +111,11 @@
     <Compile Include="Tests\Tests.vb" />
     <Compile Include="VpnBypassImpl.vb" />
     <Compile Include="NetworkInfo.vb" />
-    <Compile Include="VpnBypass.vb">
+    <Compile Include="VpnBypassForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VpnBypass.Designer.vb">
-      <DependentUpon>VpnBypass.vb</DependentUpon>
+    <Compile Include="VpnBypassForm.Designer.vb">
+      <DependentUpon>VpnBypassForm.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NSLookUp.vb" />
@@ -133,10 +134,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="VpnBypassTabSettings.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="VpnBypass.resx">
-      <DependentUpon>VpnBypass.vb</DependentUpon>
+    <EmbeddedResource Include="VpnBypassForm.resx">
+      <DependentUpon>VpnBypassForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
