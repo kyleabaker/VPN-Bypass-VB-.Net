@@ -16,11 +16,23 @@ Module FileIO
                 Using sr As New StreamReader(domainListPath)
                     Dim content As String() = Strings.Split(sr.ReadToEnd(), vbCrLf)
 
-                    For Each row In content
-                        If row IsNot "" Then
+                    For Each row As String In content
+                        If row.Trim IsNot "" Then
                             Dim domainInfo As String() = row.Split(",")
-                            Dim domain As String = domainInfo(0) 'TODO add graceful error/defaults handling for short array
-                            Dim nslookup As String = domainInfo(1)
+                            Dim domain As String = "" ' domainInfo[0]
+                            Dim nslookup As String = "" ' domainInfo[1]
+
+                            ' Graceful error/defaults handling for short array
+                            Try
+                                domain = domainInfo(0)
+                            Catch ex As Exception
+                                Throw New Exception("Missing domain name")
+                            End Try
+                            Try
+                                nslookup = domainInfo(1)
+                            Catch ex As Exception
+                                nslookup = "true" ' default to true
+                            End Try
 
                             ' Ensure nslookup option is defined
                             If nslookup = "" Then
@@ -87,40 +99,65 @@ Module FileIO
                     Dim content As String() = Strings.Split(sr.ReadToEnd(), vbCrLf)
                     Dim isDomainFullyEnabled As Boolean = True
 
-                    For Each row In content
-                        Dim ipInfo As String() = row.Split(",")
-                        Dim ip As String = IPv4.getIpAddressFromIpCidr(ipInfo(0)) 'TODO add graceful error/defaults handling for short array
-                        Dim cidr As String = IPv4.getCidrFromIpCidr(ipInfo(0))
-                        Dim subnetMask As String = ipInfo(1)
-                        Dim permanent As String = ipInfo(2)
+                    For Each row As String In content
+                        If row.Trim IsNot "" Then
+                            Dim ipInfo As String() = row.Split(",")
+                            Dim ipCidr As String = "" ' ipInfo[0]
+                            Dim ip As String = ""
+                            Dim cidr As String = ""
+                            Dim subnetMask As String = "" ' ipInfo[1]
+                            Dim permanent As String = "" ' ipInfo[2]
 
-                        ' Ensure cidr and subnet mask are defined
-                        If cidr = "" And IPv4.isValid(subnetMask) Then
-                            cidr = IPv4.getCidrFromSubnetMask(subnetMask)
-                        ElseIf subnetMask = "" And IPv4.isCidr(cidr) = True Then
-                            subnetMask = IPv4.getSubnetMaskFromCidr(cidr)
-                        ElseIf cidr = "" And subnetMask = "" Then
-                            cidr = "32"
-                            subnetMask = "255.255.255.255"
-                        End If
+                            ' Graceful error/defaults handling for short array
+                            Try
+                                ipCidr = ipInfo(0)
+                                ip = IPv4.getIpAddressFromIpCidr(ipCidr)
+                                cidr = IPv4.getCidrFromIpCidr(ipCidr)
+                            Catch ex As Exception
+                                Throw New Exception("Missing domain ip")
+                            End Try
+                            Try
+                                subnetMask = ipInfo(1)
+                                If subnetMask = "" Then
+                                    subnetMask = IPv4.getSubnetMaskFromCidr(cidr)
+                                End If
+                            Catch ex As Exception
+                                subnetMask = IPv4.getSubnetMaskFromCidr(cidr)
+                            End Try
+                            Try
+                                permanent = ipInfo(2)
+                            Catch ex As Exception
+                                permanent = "false" ' default to false
+                            End Try
 
-                        ' Ensure permanent option is defined
-                        If permanent = "" Then
-                            permanent = "False"
-                        End If
+                            ' Ensure cidr and subnet mask are defined
+                            If cidr = "" And IPv4.isValid(subnetMask) Then
+                                cidr = IPv4.getCidrFromSubnetMask(subnetMask)
+                            ElseIf subnetMask = "" And IPv4.isCidr(cidr) = True Then
+                                subnetMask = IPv4.getSubnetMaskFromCidr(cidr)
+                            ElseIf cidr = "" And subnetMask = "" Then
+                                cidr = "32"
+                                subnetMask = "255.255.255.255"
+                            End If
 
-                        Dim opts As Hashtable = New Hashtable
-                        opts.Add("cidr", cidr)
-                        opts.Add("subnetMask", subnetMask)
-                        opts.Add("permanent", permanent)
+                            ' Ensure permanent option is defined
+                            If permanent = "" Then
+                                permanent = "False"
+                            End If
 
-                        Dim ipNode As TreeNode = VpnBypassImpl.getNewTreeNode(ip, opts)
-                        VpnBypassImpl.addDomainIp(domainNode, ipNode)
-                        VpnBypassImpl.log("- " + ip)
+                            Dim opts As Hashtable = New Hashtable
+                            opts.Add("cidr", cidr)
+                            opts.Add("subnetMask", subnetMask)
+                            opts.Add("permanent", permanent)
 
-                        ' Check if IP is already routed on import
-                        If Route.isRouted(ipNode) = False Then
-                            isDomainFullyEnabled = False
+                            Dim ipNode As TreeNode = VpnBypassImpl.getNewTreeNode(ip, opts)
+                            VpnBypassImpl.addDomainIp(domainNode, ipNode)
+                            VpnBypassImpl.log("- " + ip)
+
+                            ' Check if IP is already routed on import
+                            If Route.isRouted(ipNode) = False Then
+                                isDomainFullyEnabled = False
+                            End If
                         End If
                     Next
 
