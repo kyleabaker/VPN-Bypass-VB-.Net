@@ -21,6 +21,8 @@ Module FileIO
                             Dim domainInfo As String() = row.Split(",")
                             Dim domain As String = "" ' domainInfo[0]
                             Dim nslookup As String = "" ' domainInfo[1]
+                            Dim subnetMask As String = "" ' domainInfo[2]
+                            Dim purgeExpired As String = "" ' domainInfo[3]
 
                             ' Graceful error/defaults handling for short array
                             Try
@@ -30,14 +32,23 @@ Module FileIO
                             End Try
                             Try
                                 nslookup = domainInfo(1)
+                                ' Ensure nslookup option is defined
+                                If nslookup = "" Then
+                                    nslookup = "true"
+                                End If
                             Catch ex As Exception
                                 nslookup = "true" ' default to true
                             End Try
-
-                            ' Ensure nslookup option is defined
-                            If nslookup = "" Then
-                                nslookup = "true"
-                            End If
+                            Try
+                                subnetMask = domainInfo(2)
+                            Catch ex As Exception
+                                subnetMask = ""
+                            End Try
+                            Try
+                                purgeExpired = domainInfo(3)
+                            Catch ex As Exception
+                                purgeExpired = "now"
+                            End Try
 
                             Dim opts As Hashtable = New Hashtable
                             opts.Add("nslookup", nslookup)

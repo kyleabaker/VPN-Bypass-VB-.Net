@@ -339,7 +339,7 @@
         Dim domain As String = domainNode.Name
         Dim opts As Hashtable = domainNode.Tag
         Dim refresh As String = opts.Item("nslookup").ToString()
-        Dim subnetMask As String = opts.Item("subnetMask").ToString() 'TODO
+        Dim subnetMask As String = opts.Item("subnetMask").ToString()
         Dim purgeExpired As String = opts.Item("purgeExpired").ToString()
 
         showEdit()
