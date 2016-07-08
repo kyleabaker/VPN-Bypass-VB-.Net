@@ -1,7 +1,6 @@
 ﻿Imports System.ComponentModel
 
 Public Class VpnBypassForm
-    Dim VpnBypassWindowState As FormWindowState = FormWindowState.Normal
     Dim WithEvents dt As System.Windows.Threading.DispatcherTimer
 
     '============================================================
@@ -216,7 +215,7 @@ Public Class VpnBypassForm
             Notify.setBalloonTip("VPN Bypass is still running in the background. To exit, right click the system tray icon and click 'Exit'.")
             Me.Hide()
         Else
-            VpnBypassWindowState = Me.WindowState
+            Notify.setWindowState(Me.WindowState)
         End If
     End Sub
 
@@ -288,17 +287,12 @@ Public Class VpnBypassForm
 
     ' Show/Hide App from System Tray
     Private Sub NotifyIcon_DoubleClick(sender As Object, e As EventArgs) Handles NotifyIcon.DoubleClick
-        If Me.Visible = True Then
-            Me.Hide()
-        Else
-            Me.Show()
-            Me.WindowState = VpnBypassWindowState
-        End If
+        Notify.toggle()
     End Sub
 
     Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
         Me.Show()
-        Me.WindowState = VpnBypassWindowState
+        Me.WindowState = Notify.getWindowState()
         Me.TabControl.SelectedTab = Me.TabSettings
     End Sub
 
