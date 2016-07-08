@@ -380,20 +380,15 @@
     ' Add from Add/Edit tab
     Public Sub ButtonAdd()
         Dim domain As String = VpnBypassForm.TextBoxDomainAddEdit.Text.ToLower()
-        Dim nslookup As String = VpnBypassForm.ComboBoxRefreshDnsAddEdit.Text.ToLower()
+        Dim nslookup As String = VpnBypassForm.ComboBoxRefreshDnsAddEdit.Text
         Dim subnetMask As String = VpnBypassForm.TextBoxSubnetMaskAddEdit.Text.ToLower()
-        Dim purgeExpired As String = VpnBypassForm.ComboBoxPurgeExpiredIpsAddEdit.Text.ToLower()
+        Dim purgeExpired As String = VpnBypassForm.ComboBoxPurgeExpiredIpsAddEdit.Text
 
         ' Prepare/transform domain input data
         If nslookup = "Yes (default)" Then ' nslookup
             nslookup = "true"
         Else
             nslookup = "false"
-        End If
-        If subnetMask = "Yes (default)" Then ' subnet mask
-            subnetMask = "true"
-        Else
-            subnetMask = "false"
         End If
         If purgeExpired = "Immediately upon refresh (default)" Then ' purge expired now
             purgeExpired = "now"
@@ -413,13 +408,15 @@
             purgeExpired = "never"
         End If
 
-
-
         Dim opts As Hashtable = New Hashtable
         opts.Add("nslookup", nslookup)
         opts.Add("subnetMask", subnetMask)
         opts.Add("purgeExpired", purgeExpired)
 
+        ' Hide add/edit tab after adding/editing
+        hide()
+
+        ' Create node and process it
         Dim domainNode As TreeNode = VpnBypassImpl.getNewTreeNode(domain, opts)
 
         If VpnBypassForm.TreeViewDomains.Nodes.ContainsKey(domain) = False Then
@@ -433,9 +430,6 @@
             ' Refresh Routed IP list
             Route.print()
         End If
-
-        ' Hide add/edit tab after adding/editing
-        hide()
     End Sub
 
     ' Cancel Add/Edit tab
