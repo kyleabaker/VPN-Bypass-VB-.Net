@@ -47,8 +47,8 @@
         VpnBypassForm.ButtonAddDomainAddEdit.Enabled = False
     End Sub
 
-    ' Set fields
-    Private Sub setFields(domain As String, refresh As String, subnetMask As String, purgeExpired As String)
+    ' Set domain fields
+    Private Sub setDomainFields(domain As String, refresh As String, subnetMask As String, purgeExpired As String)
         ' Reset tab/fields for clean start
         reset()
 
@@ -73,6 +73,11 @@
         If Not purgeExpired = vbEmpty Then
             VpnBypassForm.ComboBoxPurgeExpiredIpsAddEdit.SelectedText = purgeExpired
         End If
+    End Sub
+
+    ' Set ip address fields
+    Private Sub setIpAddressFields()
+        'TODO
     End Sub
 
     ' Set focus on TextBoxDomain form
@@ -228,24 +233,6 @@
         End If
     End Sub
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     ' Actions to apply when domain menu opens
     Public Sub doMenuOpen()
         Dim selectedNode As TreeNode = VpnBypassForm.TreeViewDomains.SelectedNode
@@ -356,7 +343,7 @@
         Dim purgeExpired As String = opts.Item("purgeExpired").ToString()
 
         showEdit()
-        setFields(domain, refresh, subnetMask, purgeExpired)
+        setDomainFields(domain, refresh, subnetMask, purgeExpired)
         focus()
     End Sub
 
@@ -365,9 +352,12 @@
         'TODO
     End Sub
 
-    ' Remove IP from domain
+    ' Remove IP from routes table and domain node
     Public Sub doMenuRemoveIpAddress()
-        'TODO
+        Dim domainNode As TreeNode = getDomainNode()
+        Dim ipNode As TreeNode = getIpNode()
+        Route.delete(ipNode)
+        VpnBypassImpl.removeDomainIp(domainNode, ipNode)
     End Sub
 
     ' Edit IP on domain

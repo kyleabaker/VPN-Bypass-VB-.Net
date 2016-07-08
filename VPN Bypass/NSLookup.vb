@@ -125,7 +125,7 @@ Module NSLookUp
     End Function
 
     ' Windows system nslookup, perform DNS Lookup and parse output
-    Private Function doWindowsShellNsLookup(ipNodes As TreeNode, domain As String)
+    Private Function doWindowsShellNsLookup(ipNodes As TreeNode, domain As String) As TreeNode
         Try
             Dim process As New Process
             Dim startInfo As New ProcessStartInfo("nslookup", " " + domain + " 8.8.8.8") ' Google's DNS Server
@@ -177,7 +177,7 @@ Module NSLookUp
     End Function
 
     ' JHSoftware DNS Lookup
-    Private Function doJhsDnsLookup(ipNodes As TreeNode, domain As String)
+    Private Function doJhsDnsLookup(ipNodes As TreeNode, domain As String) As TreeNode
         Try
             Dim JhsOptions = New JHSoftware.DnsClient.RequestOptions()
             JhsOptions.DnsServers = {

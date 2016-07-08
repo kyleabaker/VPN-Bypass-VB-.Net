@@ -55,7 +55,7 @@
     ' Create new domain/ip node
     '============================================================
 
-    Public Function getNewTreeNode(key As String, opts As Hashtable)
+    Public Function getNewTreeNode(key As String, opts As Hashtable) As TreeNode
         Dim newNode As TreeNode = New TreeNode()
         newNode.Text = key
         newNode.Name = key
