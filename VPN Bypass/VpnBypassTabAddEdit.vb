@@ -379,10 +379,46 @@
 
     ' Add from Add/Edit tab
     Public Sub ButtonAdd()
-        Dim domain = VpnBypassForm.TextBoxDomainAddEdit.Text.ToLower()
+        Dim domain As String = VpnBypassForm.TextBoxDomainAddEdit.Text.ToLower()
+        Dim nslookup As String = VpnBypassForm.ComboBoxRefreshDnsAddEdit.Text.ToLower()
+        Dim subnetMask As String = VpnBypassForm.TextBoxSubnetMaskAddEdit.Text.ToLower()
+        Dim purgeExpired As String = VpnBypassForm.ComboBoxPurgeExpiredIpsAddEdit.Text.ToLower()
+
+        ' Prepare/transform domain input data
+        If nslookup = "Yes (default)" Then ' nslookup
+            nslookup = "true"
+        Else
+            nslookup = "false"
+        End If
+        If subnetMask = "Yes (default)" Then ' subnet mask
+            subnetMask = "true"
+        Else
+            subnetMask = "false"
+        End If
+        If purgeExpired = "Immediately upon refresh (default)" Then ' purge expired now
+            purgeExpired = "now"
+        ElseIf purgeExpired = "Older than 1 hour (upon refresh)" Then ' 1h
+            purgeExpired = "1h"
+        ElseIf purgeExpired = "Older than 3 hours (upon refresh)" Then ' 3h
+            purgeExpired = "3h"
+        ElseIf purgeExpired = "Older than 6 hours (upon refresh)" Then ' 6h
+            purgeExpired = "6h"
+        ElseIf purgeExpired = "Older than 9 hours (upon refresh)" Then ' 9h
+            purgeExpired = "9h"
+        ElseIf purgeExpired = "Older than 12 hours (upon refresh)" Then ' 12h
+            purgeExpired = "12h"
+        ElseIf purgeExpired = "Older than 24 hours (upon refresh)" Then ' 24h
+            purgeExpired = "24h"
+        Else ' Never
+            purgeExpired = "never"
+        End If
+
+
+
         Dim opts As Hashtable = New Hashtable
-        'TODO set subnet mask from ui settings
-        opts.Add("nslookup", "true") 'TODO set this from ui settings
+        opts.Add("nslookup", nslookup)
+        opts.Add("subnetMask", subnetMask)
+        opts.Add("purgeExpired", purgeExpired)
 
         Dim domainNode As TreeNode = VpnBypassImpl.getNewTreeNode(domain, opts)
 

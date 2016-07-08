@@ -86,7 +86,7 @@ Module Route
                             opts.Add("metric", metric)
                             Dim ipNode As TreeNode = VpnBypassImpl.getNewTreeNode(networkAddress, opts)
 
-                            ' Add ip to routes list if it's not a duplicate 'TODO should we allow duplicates? If so, we'll need to move away from hashtable's
+                            ' Add ip to routes list if it's not a duplicate
                             If routes.ContainsKey(networkAddress) = False Then
                                 routes.Add(networkAddress, ipNode)
                             End If

@@ -163,9 +163,11 @@ Module NSLookUp
                         If ipNodes.Nodes.ContainsKey(ip) = False Then
                             ipNodes.Nodes.Add(ipNode)
                         End If
+                    ElseIf Not ip = "" And IPv6.isValid(ipNode) Then
+                        ' log ipv6 since it's not supported current.
+                        Console.WriteLine("Windows nslookup IPv6 skipped: " + ip) 'Debug purposes only
                     ElseIf Not ip = "" Then
-                        'Console.WriteLine("Windows nslookup ip failed: " + cleanIp) 'Debug purposes only
-                        'TODO filter vpv6, these aren't necessarily failures, just not the format we're looking for.
+                        Console.WriteLine("Windows nslookup ip failed: " + ip) 'Debug purposes only
                     End If
                 Next
             End If
