@@ -1,10 +1,6 @@
 ﻿Module Notify
     Dim VpnBypassWindowState As FormWindowState = FormWindowState.Normal
 
-    Public Sub setSystemTrayIcon()
-        VpnBypassForm.NotifyIcon.Icon = VpnBypassForm.Icon
-    End Sub
-
     Public Sub setBalloonTip(message As String)
         VpnBypassForm.NotifyIcon.BalloonTipIcon = ToolTipIcon.Info
         VpnBypassForm.NotifyIcon.BalloonTipTitle = "VPN Bypass"

@@ -509,6 +509,7 @@ Partial Class VpnBypassForm
         'NotifyIcon
         '
         Me.NotifyIcon.ContextMenuStrip = Me.ContextMenuStrip
+        Me.NotifyIcon.Icon = CType(resources.GetObject("NotifyIcon.Icon"), System.Drawing.Icon)
         Me.NotifyIcon.Text = "VPN Bypass"
         Me.NotifyIcon.Visible = True
         '

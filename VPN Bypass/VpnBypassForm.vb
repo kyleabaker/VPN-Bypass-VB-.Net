@@ -237,9 +237,6 @@ Public Class VpnBypassForm
         ' Setup scheduled hourly update task
         schedule()
 
-        ' Add System Tray Icon
-        Notify.setSystemTrayIcon()
-
         ' Initialize Add/Edit tab
         VpnBypassTabAddEdit.init()
 

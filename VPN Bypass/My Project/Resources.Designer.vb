@@ -59,5 +59,65 @@ Namespace My.Resources
                 resourceCulture = value
             End Set
         End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property vpn_bypass_128x128() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("vpn_bypass_128x128", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property vpn_bypass_16x16() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("vpn_bypass_16x16", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property vpn_bypass_256x256() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("vpn_bypass_256x256", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property vpn_bypass_32x32() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("vpn_bypass_32x32", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property vpn_bypass_48x48() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("vpn_bypass_48x48", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property vpn_bypass_64x64() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("vpn_bypass_64x64", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
     End Module
 End Namespace
