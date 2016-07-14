@@ -65,7 +65,7 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>vpnbypass.ico</ApplicationIcon>
+    <ApplicationIcon>vpn-bypass.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="JHSoftware.DnsClient">
@@ -173,6 +173,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="vpn-bypass.ico" />
     <Content Include="vpnbypass.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

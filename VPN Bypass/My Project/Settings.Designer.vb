@@ -53,6 +53,42 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property ShowNotifications() As Boolean
+            Get
+                Return CType(Me("ShowNotifications"),Boolean)
+            End Get
+            Set
+                Me("ShowNotifications") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property OverrideGateway() As String
+            Get
+                Return CType(Me("OverrideGateway"),String)
+            End Get
+            Set
+                Me("OverrideGateway") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property OverrideSubnetMask() As String
+            Get
+                Return CType(Me("OverrideSubnetMask"),String)
+            End Get
+            Set
+                Me("OverrideSubnetMask") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -132,7 +132,7 @@ Partial Class VpnBypassForm
         '
         Me.ContextMenuStripDomains.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DomainToolStripMenuItem, Me.AddToolStripMenuItem, Me.RemoveToolStripMenuItem, Me.EditToolStripMenuItem, Me.ToolStripSeparator1, Me.DNSIPToolStripMenuItem, Me.AddToolStripMenuItem1, Me.RemoveToolStripMenuItem1, Me.EditToolStripMenuItem1, Me.ToolStripSeparator2, Me.EnableexamplecomToolStripMenuItem, Me.DisableexamplecomToolStripMenuItem})
         Me.ContextMenuStripDomains.Name = "ContextMenuStrip1"
-        Me.ContextMenuStripDomains.Size = New System.Drawing.Size(198, 258)
+        Me.ContextMenuStripDomains.Size = New System.Drawing.Size(198, 236)
         '
         'DomainToolStripMenuItem
         '
